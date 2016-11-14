@@ -1,0 +1,43 @@
+@charset "utf-8";
+
+body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; background-color: #eeeefb; font-size: 12px; }
+
+#main { width: 100%; height: 532px; background: url(images/login_main_bg.jpg) repeat-x; }
+
+#content { border-left: 1px solid #9ea6b9; border-right: 1px solid #9ea6b9; padding: 15px; background-color: #fafafd; }
+
+.button { margin-left: 140px; }
+#bottom { width: 100%; height: 29px; background: url(images/login_main_bottom.jpg) repeat-x; text-align: center; padding-top: 6px; }
+#bottom a { color: #b6bec8; text-decoration: none; }
+#bottom a:hover { text-decoration: underline; }
+
+img { border: 0; }
+
+.inputwidth { width: 250px; }
+
+.logoutbutton { width: 52px; height: 26px; background: url(images/logout_btn.jpg) no-repeat; border: 0; }
+
+#nav { background-color: #f6f4ff; border: 1px solid #cad4de; padding: 10px; }
+#nav a { color: #004979; text-decoration: none; }
+#nav a:hover { color: #00be2a; text-decoration: underline; }
+#nav ul { list-style: none; margin: 0; padding: 0 0 0 23px; }
+#nav ul li { list-style: none; margin: 0; padding: 4px 0 0 0; font-size:13px; }
+
+.newbutton { width: 79px; height: 27px; background: url(images/new_button.jpg) no-repeat; border: 0; margin: 8px 0; }
+
+.style1 { color: #ffffff; }
+
+#tableA td { background-color: #f0f0f2; padding: 8px 0; line-height: 1.5em; }
+#tableA th { background-color: #d9d9da; padding: 8px 0; line-height: 1.5em; }
+#tableB .tdlight { background-color: #f7f8f9; padding: 8px 10px; line-height: 1.5em; }
+#tableB .tddark { background-color: #f2f2f2; padding: 8px 10px; line-height: 1.5em; }
+#tableB .tdbutton { padding-right: 20px;}
+#title { width: 100%; height: 29px; background: url(images/title_bg.gif) repeat-x; }
+
+.titleB { width: 100%; background-color: #e2e5ec; border-top: 1px solid #c0c4c9; border-bottom: 1px solid #6a6b6f; }
+
+.titleBText {padding: 5px 0 5px 5px; line-height: 1.5em; color: #004979; font-weight: bold;}
+
+#top { width: 100%; height: 42px; background: url(images/top.jpg) repeat-x; padding: 0 15px; }
+
+#topshort { width: 100%; height: 21px; background: url(images/top_short.jpg) repeat-x; }

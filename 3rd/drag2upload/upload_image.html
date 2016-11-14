@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<style>
+/*拖曳上傳區塊*/
+.upload-image
+{
+width: 200px;
+height:200px;
+border-style: dashed;
+border-color: black;
+}
+
+/*拖放到位置時區塊變色*/
+.dragover
+{
+border-color: red ;
+}
+
+/*進度條顯示*/
+.progress
+{
+margin-top: 3% ;
+width: 200px;
+}
+
+/*上傳成功後的照片的預覽顯示*/
+.image
+{
+width: 200px ;
+height: 200px ;
+border-width: 2px;
+border-style: solid;
+}
+</style>
+<script>
+function listArray(main)
+{
+var s = "";
+for(key in main)
+s += key + ": " + main[key] + "\n";
+return s;
+}
+
+function dragHandler(e)
+{
+var upload_image = document.getElementById('drop_image'); /*拖曳上傳區塊*/
+var elProgress = document.getElementById('upload_progress'); /*進度條顯示*/
+e.preventDefault() ;
+
+ //當圖片拖曳到區塊位置時，透過變更class名稱來動態讀取CSS變成紅色
+ if(!upload_image.className.match('dragover'))
+ {
+ upload_image.className = upload_image.className + ' dragover';
+ }
+ 
+ //每次上傳新圖時進度條重新歸0
+ if(upload_progress.style.width != '0%')
+ {
+ upload_progress.style.width = '0%';
+ }
+}
+
+function drop_image(e)
+{
+e.preventDefault() ;
+var upload_image     = document.getElementById('drop_image'); //拖曳上傳區塊
+var elProgress       = document.getElementById('upload_progress'); //進度條顯示
+var images_container = document.getElementById('images_container'); /*上傳成功後的照片的預覽顯示*/
+var objXhr           = new XMLHttpRequest(); //宣告將使使用AJAX呼叫
+var files            = e.dataTransfer.files ;
+alert('檔案的相關資訊'+ '\n' + '\n' + '上傳數量'+ files.length + '\n' + listArray(files[0]));
+var objForm          = new FormData() ;
+var sucess_count     = 0 ;
+    
+ //上傳過程中的進度條偵測
+ objXhr.upload.onprogress = function(e)
+ {
+  if (e.lengthComputable)
+  {
+  var intComplete = (e.loaded / e.total) * 100 | 0 ;
+  elProgress.innerHTML   = intComplete + '%' ;
+  elProgress.style.width = intComplete + '%' ;
+  elProgress.setAttribute('aria-valuenow', intComplete) ;
+  }
+ }
+    
+ objXhr.onload = function(e)
+ {
+ upload_image.className = upload_image.className.replace(' dragover', '') ;
+ elProgress.className   = elProgress.className.replace(' active', '') ;
+ var arrData = JSON.parse(objXhr.responseText) ;
+  for (var i=0; i<arrData.length; i++)
+  {
+   if(arrData[i].message == 'Success')
+   {
+   var img = new Image() ;
+   img.src = arrData[i].url ;
+   img.className = 'image' ;
+   images_container.appendChild(img) ;
+   }
+  }
+ }
+    
+ //呼叫PHP去做圖片上傳的動作
+ objXhr.open('POST', 'php/upload.php?name=images');
+  for (var i=0; i<files.length; i++)
+  {
+   if(!files[i].type.match('image'))
+   {
+   var name = files[i].name ;
+   alert(name + '無法上傳！請再次拖曳圖片檔案！') ;
+   continue ;
+   }
+  objForm.append('images[]', files[i]) ;
+  }
+    
+objXhr.send(objForm) ;
+}
+
+
+</script>
+</head>
+<body>
+
+ <!--拖曳上傳區塊-->
+ <div id="drop_image" ondragover="javascript:dragHandler(event);" ondrop="javascript:drop_image(event);" class="upload-image"></div>
+ 
+ <!--進度條顯示-->
+ <div class="progress text-center">
+  <div id="upload_progress" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+ </div>
+
+ <!--上傳成功後的照片的預覽顯示-->
+ <div id="images_container"></div>
+</body>
+</html>

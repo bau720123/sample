@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_seo_detail" value="name:seo_id;datatype:int,name:seo_title;datatype:blob,name:seo_btitle;datatype:blob,name:seo_keywords;datatype:blob,name:seo_description;datatype:blob,name:seo_author;datatype:blob,name:seo_company;datatype:blob,name:seo_copyright;datatype:blob,name:seo_distribution;datatype:blob,name:seo_robots;datatype:blob,name:seo_revisitafter;datatype:blob,name:seo_rating;datatype:blob,name:seo_GoogleAnalytics;datatype:blob" />
+	<infoitem key="UD_data_detail" value="name:data_id;datatype:int,name:data_1;datatype:int,name:data_2;datatype:int,name:data_3;datatype:int,name:data_4;datatype:int,name:data_5;datatype:int,name:data_6;datatype:int" />
+	<infoitem key="UD_abouts_detail" value="name:aboutus_id;datatype:int,name:aboutus_content1;datatype:blob,name:aboutus_content2;datatype:blob,name:aboutus_content3;datatype:blob,name:aboutus_content4;datatype:blob,name:aboutus_content5;datatype:blob,name:aboutus_content6;datatype:blob" />
+	<infoitem key="UD_smtp_detail" value="name:smtp_id;datatype:int,name:smtp_ssl;datatype:int,name:smtp_address;datatype:string,name:smtp_port;datatype:int,name:smtp_safe;datatype:string,name:smtp_username;datatype:string,name:smtp_password;datatype:string,name:smtp_email;datatype:string" />
+</info>

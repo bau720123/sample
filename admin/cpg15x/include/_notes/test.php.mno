@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_qa_re" value="name:qa_re_id;datatype:int,name:qa_id;datatype:int" />
+</info>

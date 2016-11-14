@@ -1,0 +1,36 @@
+﻿<!-​​-[if IE 6]> 僅IE6可識別 <![endif]–>
+<!-​​-[if lte IE 6]> IE6及其以下版本可識別<![endif]–>
+<!-​​-[if lt IE 6]> IE6以下版本可識別<![endif]–>
+<!-​​-[if gte IE 6]> IE6及其以上版本可識別<![endif]–>
+<!-​​-[if gt IE 6]> IE6以上版本可識別<![endif]–>
+<!-​​-[if IE]> 所有的IE可識別 <![endif]–>
+
+lte：Less than or equal to，小於或等於的意思。
+lt ：Less than的簡寫，小於的意思。
+gte：Greater than or equal to的簡寫，大於或等於的意思。
+gt ：Greater than的簡寫，大於的意思。
+! ：不等於的意思
+
+//JSP判斷瀏覽器的語法
+<%@ page language="java"%>
+<%
+String userAgent = request.getHeader("user-agent");
+%>
+<html>
+<body>
+<%out.print ("USER AGENT IS " +userAgent);%>
+</body>
+</html>
+
+request.getHeader(“User-agent”) ; /*取得客戶端瀏覽器的版本號、類型*/
+getHeader(String name); /*取得http協議定義的傳送文件頭信息 */
+request. getMethod(); /*取得客戶端向服務器端傳送數據的方法有GET、POST、PUT等類型 */
+request. getRequestURI(); /*取得發出請求字符串的客戶端地址 */
+request. getServletPath(); /*取得客戶端所請求的腳本文件的文件路徑 */
+request. getServerName(); /*取得服務器的名字 */
+request.getServerPort(); /*取得服務器的端口號 */
+request.getRemoteAddr(); /*取得客戶端的IP地址 */
+request.getRemoteHost(); /*取得客戶端電腦的名字，若失敗，則返回客戶端電腦的IP地址*/
+request.getProtocol(); /* 取得客戶端電腦的 Protocal */
+request.getHeaderNames(); /*取得所有request header的名字，結果集是一個Enumeration（枚舉）類的實例 */
+request.getHeaders(String name); /*取得指定名字的request */

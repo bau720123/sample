@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>無標題文件</title>
+<script type="text/javascript" src="ColorPicker2.js"></script>
+<script type="text/javascript">
+var cp = new ColorPicker('window');
+var cp2 = new ColorPicker();
+</script>
+</head>
+
+<body>
+<form>
+<input type="text" name="color" size="20" VALUE=""> <a href="#" onClick="cp.select(document.forms[0].color,'pick');return false;" name="pick" id="pick">彈出視窗</a><br>
+<input type="text" name="color2" size="20" VALUE=""> <a href="#" onClick="cp2.select(document.forms[0].color2,'pick2');return false;" name="pick2" id="pick2">直接顯示</a>
+<script type="text/javascript">cp.writeDiv()</SCRIPT>
+</form>
+</body>
+</html>
