@@ -224,6 +224,30 @@ $ip = "unknown";
 return $ip;
 }
 
+//查詢IP位址的相關資訊
+//echo getIPinformation('API第三方網址', '用什麼方式傳輸', 'post查詢時的關聯欄位', 'IP位址');
+//echo getIPinformation('http://dir.twseo.org/ip-query3.php', 'post', 'inputip', $_SERVER['REMOTE_ADDR']);
+//echo getIPinformation('http://ipinfo.io/' . $_SERVER['REMOTE_ADDR'] . '/json', 'get', '', '');
+//echo getIPinformation('http://www.geoplugin.net/json.gp?ip=' . $_SERVER['REMOTE_ADDR'], 'get', '', '');
+//echo getIPinformation('http://ip.taobao.com/service/getIpInfo.php?ip=' . $_SERVER['REMOTE_ADDR'], 'get', '', '');
+//echo getIPinformation('http://www.ipmango.com/index.php/welcome/get_location', 'get', '', '');
+//echo getIPinformation('http://api.ipinfodb.com/v3/ip-city/?key=1699d563ff6ce9daa3dceecf7eb51e08202caf591f4cb4e5d8624298d250fc0c&ip=' . $_SERVER['REMOTE_ADDR'] . '&format=json', 'get', '', '');
+function getIPinformation($url, $post_method, $column, $ip)
+{
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+ if($post_method == 'post')
+ {
+ curl_setopt($ch, CURLOPT_POST, true);
+ curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array($column => $ip))); 
+ }
+$output = curl_exec($ch);
+if($url == 'http://dir.twseo.org/ip-query3.php') { $output = str_replace("images/", "http://dir.twseo.org/images/", $output); }
+return $output;
+curl_close($ch);
+}
+
 //自動補0
 //echo autozero('%08d', '要使用的數字字串');
 function autozero($median, $string)
