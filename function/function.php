@@ -143,7 +143,6 @@ if ($max_links<2)$max_links=2;
      }
 	
  }
-
 return array($firstArray,$pagesArray,$lastArray);
 }
 
