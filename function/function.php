@@ -617,7 +617,7 @@ return $strtmp;
 }
 
 //Google翻譯
-//echo translate('要翻譯的文字', '翻譯到什麼語系', '從什麼語系', true);
+//echo translate('要翻譯的文字', '從什麼語系', '翻譯到什麼語系', true);
 /*
 af - Afrikaans
 sq - Albanian
@@ -680,7 +680,7 @@ $result = $result[0];
 return $result;
 } 
 	
-function translate($text, $to, $from = '', $cache=false)
+function translate($text, $from = '', $to, $cache=false)
 {
 $url = 'https://translate.google.com/m?ie=UTF-8&prev=_m&hl=en&' . 'sl=' . $from . '&tl=' . $to . '&q=' . urlencode(@$text);
  if(file_exists('cache/' . md5($url) . '.cache') && $cache)

@@ -21,11 +21,11 @@ foreach($_POST as $k => $v)  {
 	}
 }
 
-if (!isset($_POST["od_in"]) || intval($_POST["od_in"]) != intval("@@RANDNUM@@")) die("<WADB_RESPONSE><WADB_ERROR code=\"1\"><![CDATA[No hacking, please. Your location has been logged and reported to the FBI. Please wait for the authorities to arrive.]]></WADB_ERROR></WADB_RESPONSE>");
-if (!isset($_POST["ch_ew_y"]) || intval($_POST["ch_ew_y"]) != intval("@@TIMESTAMP@@")) die("<WADB_RESPONSE><WADB_ERROR code=\"2\"><![CDATA[No hacking, please. Your location has been logged and reported to the FBI. Please wait for the authorities to arrive.]]></WADB_ERROR></WADB_RESPONSE>");
-$timestampExpires = intval("@@TSEXPIRES@@") / 1000;
-$presTime = time(intval("@@TIMESTAMP@@") / 1000);
-$servTime = time(intval("@@SERVTIMESTAMP@@"));
+if (!isset($_POST["od_in"]) || intval($_POST["od_in"]) != intval("659733")) die("<WADB_RESPONSE><WADB_ERROR code=\"1\"><![CDATA[No hacking, please. Your location has been logged and reported to the FBI. Please wait for the authorities to arrive.]]></WADB_ERROR></WADB_RESPONSE>");
+if (!isset($_POST["ch_ew_y"]) || intval($_POST["ch_ew_y"]) != intval("1479518530000")) die("<WADB_RESPONSE><WADB_ERROR code=\"2\"><![CDATA[No hacking, please. Your location has been logged and reported to the FBI. Please wait for the authorities to arrive.]]></WADB_ERROR></WADB_RESPONSE>");
+$timestampExpires = intval("300000") / 1000;
+$presTime = time(intval("1479518530000") / 1000);
+$servTime = time(intval("0"));
 if ((time() - $timestampExpires) >= $servTime) die("<WADB_RESPONSE><WADB_ERROR code=\"3\"><![CDATA[No hacking, please. Your location has been logged and reported to the FBI. Please wait for the authorities to arrive.]]></WADB_ERROR></WADB_RESPONSE>");
 
 

@@ -1,14 +1,16 @@
 <?php // <ERRORS><ERROR><DESCRIPTION>Your testing server do not has support for PHP pages</DESCRIPTION></ERROR>\n</ERRORS>
+
 $debug_to_file = false;
 
 function log_messages($error_message){
 		global $f, $debug_to_file;
 		if ($debug_to_file === true){
-				if (!$error_message){
+				if (!is_resource($f)){
 						@ini_set('display_errors', 1);
 						@error_reporting(E_ALL);
 						$f = @fopen('log.txt', 'a');
-				} else {
+				}
+				if (is_resource($f)){
 						return @fwrite($f, $error_message."\n");
 				}
 		}
@@ -56,7 +58,6 @@ if(extension_loaded('mbstring'))
 if (isset($_POST['Type']) && $_POST['Type'] == 'MYSQL')
 {
 	require("./mysql.php");
-
 	$oConn = new MySqlConnection(@$_POST['ConnectionString'], @$_POST['Timeout'], @$_POST['Host'], @$_POST['Database'], @$_POST['UserName'], @$_POST['Password']);
 	if (!isset($oConn) || $oConn == false){
 			log_messages("\n".'MySQL Connection Object initialisation failed'."\n\n".@$error);
@@ -77,7 +78,7 @@ if (isset($oConn) && $oConn)
 
 	if ($_POST['opCode'] == 'IsOpen'){
 			$answer = $oConn->TestOpen();
-	}elseif ($oConn->isOpen){
+	}elseif (is_resource($oConn->connectionId) && $oConn->isOpen){
 
 		switch ($_POST['opCode']){
 				case 'GetTables': 				$answer = $oConn->GetTables(@$_POST['Database']); break;
