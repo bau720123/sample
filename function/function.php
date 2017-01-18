@@ -736,4 +736,14 @@ function getMultipleRanks($sites)
   }
 return $RankDataArr;
 }
+
+//隱藏中間字元
+//echo substr_cut('字串', '要替代的符號');
+function substr_cut($user_name, $symbol)
+{
+$strlen = mb_strlen($user_name, 'utf-8');
+$firstStr = mb_substr($user_name, 0, 1, 'utf-8');
+$lastStr = mb_substr($user_name, -1, 1, 'utf-8');
+return $strlen == 2 ? $firstStr . str_repeat($symbol, mb_strlen($user_name, 'utf-8') - 1) : $firstStr . str_repeat($symbol, $strlen - 2) . $lastStr;
+}
 ?>

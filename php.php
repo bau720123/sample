@@ -585,5 +585,6 @@ echo $a; //2
 echo $a; //1
 echo '<br>';
 ?>
+<?php echo substr_cut('小叮噹','X').'<br>';?>
 </body>
 </html>
