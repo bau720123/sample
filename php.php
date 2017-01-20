@@ -586,5 +586,22 @@ echo $a; //1
 echo '<br>';
 ?>
 <?php echo substr_cut('小叮噹','X').'<br>';?>
+<?php
+require_once('function/YouTubeDownloader.php');
+require_once('function/VimeoDownloader.php');
+require_once('function/LinkHandler.php');
+
+$url = "https://www.youtube.com/watch?v=gPyW6ZvMbCg";
+//$url = "https://vimeo.com/91379208";
+$handler = new LinkHandler();
+$downloader = $handler->getDownloader($url);
+$downloader->setUrl($url);
+if($downloader->hasVideo())
+{
+echo '<pre>';
+print_r($downloader->getVideoDownloadLink());
+echo '</pre>';
+}
+?>
 </body>
 </html>
