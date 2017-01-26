@@ -424,3 +424,100 @@ return unescape(r[2]);
 return null; 
 }
 //alert(getUrlParam('要偵測的欄位'));
+
+//匯出成圖檔開始
+/*
+<script src="javascript/html2canvas.min.js" type="text/javascript"></script>
+<a id="auto" style="display:none;"></a><a style="cursor: pointer;" id="download_html2canvas">點我下載成圖片</a>
+*/
+$("#download_html2canvas").click(function()
+{
+ html2canvas($(".schedule_list_wrap")[0], 
+ {
+  onrendered: function(canvas)
+  {
+  window.open(canvas.toDataURL("image/png")); //開啟一新視窗顯示html2canvas的圖  
+  $("#auto").attr('href', canvas.toDataURL("image/png"));
+  $("#auto").attr('download', 'download.png');
+  var lnk = document.getElementById("auto");
+  lnk.click();
+  }
+ });
+});
+//匯出成圖檔結束
+
+//匯出成PDF開始
+/*
+<script src="javascript/html2canvas.min.js" type="text/javascript"></script>
+<script src="javascript/jspdf.min.js" type="text/javascript"></script>
+<a style="cursor: pointer;" id="download_pdf">點我下載成PDF</a>
+*/
+$("#download_pdf").click(function()
+{
+ html2canvas($(".schedule_list_wrap")[0], 
+ {
+  onrendered: function(canvas)
+  {
+  var imgData = canvas.toDataURL("image/png");
+  var doc = new jsPDF();
+  doc.addImage(imgData, 'png', 60, 0, 0, 295, undefined, 'fast');
+  doc.save('download.pdf');
+  }
+ });
+});
+//匯出成PDF結束
+
+//匯出成EXCEL開始
+/*
+<script src="javascript/jquery.table2excel.min.js" type="text/javascript"></script>
+<a style="cursor: pointer;" id="download_excel">點我下載成Excel</a>
+*/
+$("#download_excel").click(function()
+{
+ $(".timetable").table2excel(
+ {
+ exclude: ".noExl",
+ name: "Excel Document Name",
+ filename: "download",
+ fileext: ".xls",
+ exclude_img: true,
+ exclude_links: true,
+ exclude_inputs: true
+ });
+});
+//匯出成EXCEL結束
+
+//匯出成txt開始
+/*
+<a style="cursor: pointer;" id="download_txt">點我下載成TXT</a>
+*/
+$("#download_txt").click(function()
+{
+var thecontent = $(".timetable_txt").html();
+//thecontent = thecontent.replace("XXX", "\r\n");
+thecontent = thecontent.replace(/\XXX/g,"\r\n");
+var textFileAsBlob = new Blob([thecontent], {type:'text/plain'});
+ 
+var downloadLink = document.createElement("a");
+downloadLink.download = 'download';
+downloadLink.innerHTML = "Download File";
+ if (window.url != null)
+ {
+ downloadLink.href = window.url.createObjectURL(textFileAsBlob); //Chrome允許連結被點擊在DOM節點並沒有實際存在的情況下
+ }
+  else
+  {
+  //Firefox的連結一定要在DOM節點實際存在的情況下才能夠被點擊
+  downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+  downloadLink.onclick = destroyClickedElement;
+  downloadLink.style.display = "none";
+  document.body.appendChild(downloadLink);
+  }
+downloadLink.click();
+});
+
+function destroyClickedElement(event)
+{
+document.body.removeChild(event.target);
+}
+//匯出成txt結束
