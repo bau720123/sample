@@ -603,5 +603,17 @@ print_r($downloader->getVideoDownloadLink());
 echo '</pre>';
 }
 ?>
+<?php
+//印出資料庫結構說明
+require_once('function/phpdbdoc.php');
+
+$doc = new phpdbdoc();
+$doc->setUserdb("root");
+$doc->setLinkdb('localhost');
+$doc->setPassword('720123bau');
+$doc->setDataBase('littleb1_sample');
+$doc->DBConnect();
+$doc->getDoc();
+?>
 </body>
 </html>
