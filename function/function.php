@@ -746,4 +746,45 @@ $firstStr = mb_substr($user_name, 0, 1, 'utf-8');
 $lastStr = mb_substr($user_name, -1, 1, 'utf-8');
 return $strlen == 2 ? $firstStr . str_repeat($symbol, mb_strlen($user_name, 'utf-8') - 1) : $firstStr . str_repeat($symbol, $strlen - 2) . $lastStr;
 }
+
+//複製A資料夾裡面的所有東西到B資料夾
+//echo copy_dir($source,$dest);
+function copy_dir($from_dir,$to_dir)
+{
+set_time_limit(0); //執行程式時間無上限
+	if(!is_dir($from_dir))
+	{  
+	return false ;  
+	} 
+        
+	echo "<br>From:",$from_dir,' --- To:',$to_dir;  
+	$from_files = scandir($from_dir);  
+
+	if(!file_exists($to_dir))
+	{  
+	mkdir($to_dir);
+	}  
+
+	if(!empty($from_files))
+	{  
+        foreach($from_files as $file)
+		{  
+			if($file == '.' || $file == '..' )
+			{  
+            continue;  
+            }  
+                  
+			if(is_dir($from_dir.'/'.$file))
+			{
+            copy_dir($from_dir.'/'.$file,$to_dir.'/'.$file);  
+            }
+			
+				else
+				{
+                copy($from_dir.'/'.$file,$to_dir.'/'.$file);  
+                }  
+        }  
+    }
+return true ;
+}
 ?>
