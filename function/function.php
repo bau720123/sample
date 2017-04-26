@@ -787,4 +787,11 @@ set_time_limit(0); //執行程式時間無上限
     }
 return true ;
 }
+
+//秒數轉成時分秒
+//echo get_second_to_his(9120);
+function get_second_to_his($s)
+{
+return str_pad(floor(($s%86400)/3600),2,'0',STR_PAD_LEFT).':'.str_pad(floor((($s%86400)%3600)/60),2,'0',STR_PAD_LEFT).':'.str_pad(floor((($s%86400)%3600)%60),2,'0',STR_PAD_LEFT);
+}
 ?>
