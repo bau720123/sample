@@ -794,4 +794,12 @@ function get_second_to_his($s)
 {
 return str_pad(floor(($s%86400)/3600),2,'0',STR_PAD_LEFT).':'.str_pad(floor((($s%86400)%3600)/60),2,'0',STR_PAD_LEFT).':'.str_pad(floor((($s%86400)%3600)%60),2,'0',STR_PAD_LEFT);
 }
+
+//取得youtube網址的id
+//echo youtube_id('youtube網址'); //https://www.youtube.com/watch?v=gPyW6ZvMbCg
+function youtube_id($action)
+{
+preg_match('/watch\?v=([^&]*)/',$action,$match);
+return $match[1];
+}
 ?>
