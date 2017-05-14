@@ -816,4 +816,89 @@ $dirs = glob($dir . '/*', GLOB_ONLYDIR);
  foreach ($dirs as $dir) listdirs($dir);
 return $alldirs;
 }
+
+//刪除所有檔案及資料夾
+//SureRemoveDir(dirname(__FILE__), false); //false︰保留目前資料夾
+//SureRemoveDir(你要刪除的對應路徑, false);
+function SureRemoveDir($dir, $DeleteMe)
+{
+if(!$dh = @opendir($dir)) return;
+ 
+ while (false !== ($obj = readdir($dh)))
+ {
+ if($obj=='.' || $obj=='..') continue;
+ if (!@unlink($dir.'/'.$obj)) SureRemoveDir($dir.'/'.$obj, true); //true︰不留下空的資料夾
+ }
+ 
+ if($DeleteMe)
+ {
+ closedir($dh);
+ @rmdir($dir);
+ }
+}
+
+//將所在的目錄內，所有資料夾與檔案一併壓縮
+//zipDir(dirname(__FILE__), dirname(__FILE__).'/BackupiZO.zip');
+//zipDir(你要備份的資料夾, 你要轉存的資料夾.'/檔名.zip');
+function folderToZip($folder, &$zipFile, $exclusiveLength)
+{
+$handle=opendir($folder);
+ while(false !== $f = readdir($handle))
+ {
+  if($f != '.' && $f != '..')
+  {
+  $filePath = "$folder/$f"; //在添加到zip之前，從文件路徑中刪除前綴
+  $localPath = substr($filePath, $exclusiveLength);
+   if(is_file($filePath))
+   {
+   $zipFile->addFile($filePath, $localPath);
+   }
+    else if(is_dir($filePath))
+    {
+    //添加子目錄
+    $zipFile->addEmptyDir($localPath);
+    folderToZip($filePath, $zipFile, $exclusiveLength);
+    }
+  }
+ }
+closedir($handle);
+}
+
+function zipDir($sourcePath, $outZipPath)
+{
+$pathInfo = pathInfo($sourcePath);
+$parentPath = $pathInfo['dirname'];
+$dirName = $pathInfo['basename'];
+$z = new ZipArchive();
+$z->open($outZipPath, ZIPARCHIVE::CREATE);
+$z->addEmptyDir($dirName);
+folderToZip($sourcePath, $z, strlen("$parentPath/"));
+$z->close();
+}
+
+//將zip壓縮檔進行解壓縮
+//zipToFile(dirname(__FILE__).'/BackupiZO.zip', dirname(__FILE__));
+//zipToFile(你要還原的來源檔案, 你要還原的目的檔案);
+function zipToFile($source, $extract_to)
+{
+$zip=new ZipArchive;
+ if($zip->open($source) === TRUE)
+ {
+ $zip->extractTo($extract_to); //避免覆蓋，將解壓縮資料放進該資料夾
+ $zip->close();
+ }
+}
+
+//將特定檔案進行壓縮
+//fileToZip('BackupiZO.zip', image.txt');
+//fileToZip(壓縮後的檔案名, 你要壓縮的檔案名);
+function fileToZip($zip, $file)
+{
+$zip=new ZipArchive; 
+ if($zip->open('BackupiZO.zip',ZipArchive::OVERWRITE) === TRUE)
+ { 
+ $zip->addFile('image.txt'); //欲壓縮檔案 
+ $zip->close();
+ }
+}
 ?>

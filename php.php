@@ -686,5 +686,16 @@ echo $path_parts['basename'] . '</br>';
 echo $path_parts['extension'] . '</br>';
 echo $path_parts['filename'] . '</br>'; //從PHP 5.2.0開始有
 ?>
+<?php
+//解壓縮zip檔案
+require_once('function/pclzip.lib.php');
+
+/*error_reporting(0);
+$archive = new PclZip('壓縮檔.zip'); 
+if($archive->extract() == 0)
+{
+die("錯誤︰".$archive->errorInfo(true)); 
+}*/
+?>
 </body>
 </html>
