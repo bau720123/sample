@@ -250,7 +250,28 @@ if (in_array($a, json_decode(delivery_true_type))) { echo "有"; } else { echo "
 ?>
 <?php
 //數字格式化
-echo number_format('10000',2);
+/*
+1)欲轉換的數字
+2)小數位數
+3)小數點的顯示字元
+4)三位數的顯示字元
+*/
+
+/*
+SQL查詢
+SELECT FORMAT(money, 4) FROM salary;
+--輸出結果將會把money的數字資料態轉為xx,xxx,xxx格式，以下為範圍輸出
+
+SELECT FORMAT(12332.123456, 4);
+--輸出結果為：12,332.1235
+
+SELECT FORMAT(12332.2,0)
+--輸出結果為：12,332
+
+SELECT FORMAT(12332.1,4)
+--輸出結果為：12,332.1000
+*/
+echo number_format('10000', 2, '.' ,',');//輸出結果為：1,234,567,890.32
 ?>
 <?php
 //base64加解密功能
@@ -585,7 +606,6 @@ echo $a; //2
 echo $a; //1
 echo '<br>';
 ?>
-<?php echo substr_cut('小叮噹','X').'<br>';?>
 <?php
 require_once('function/YouTubeDownloader.php');
 require_once('function/VimeoDownloader.php');
@@ -598,22 +618,73 @@ $downloader = $handler->getDownloader($url);
 $downloader->setUrl($url);
 if($downloader->hasVideo())
 {
-echo '<pre>';
+/*echo '<pre>';
 print_r($downloader->getVideoDownloadLink());
-echo '</pre>';
+echo '</pre>';*/
 }
 ?>
 <?php
 //印出資料庫結構說明
 require_once('function/phpdbdoc.php');
 
-$doc = new phpdbdoc();
+/*$doc = new phpdbdoc();
 $doc->setUserdb("root");
 $doc->setLinkdb('localhost');
 $doc->setPassword('720123bau');
 $doc->setDataBase('littleb1_sample');
 $doc->DBConnect();
-$doc->getDoc();
+$doc->getDoc();*/
+?>
+<?php
+//印出檔案結構
+echo '<pre>';
+print_r(glob('*'));
+echo '</pre>';
+echo '<pre>';
+print_r(scandir('..'));
+echo '</pre>';
+?>
+<?php
+/*
+在使用之前，我們先大致了解一下glob有什麼特別的參數可以使用。
+GLOB_MARK     - 若檔案為資料夾，在回傳檔案路徑的最後面加上斜線"\"
+GLOB_NOSORT   - 保持檔案路徑在原資料夾的出現順序(不重新排序)。※筆者在Win環境看不出差異
+GLOB_NOCHECK  - 若找不到匹配的檔案路徑，回傳匹配的條件字串
+GLOB_NOESCAPE - 不要將反斜線視為跳脫字元(※筆者在Win環境下看不出差異)
+GLOB_BRACE    - 將 {a,b,c} 視為搜尋 'a', 'b', 或 'c'
+GLOB_ONLYDIR  - 只列出資料夾路徑
+GLOB_ERR      - 發生讀取錯誤時停止動作(像是無法讀取的資料夾)，預設是「忽略錯誤」
+*/
+
+//搜尋 path 資料夾中，所以資料夾的路徑，並在最後加上斜線 "\"
+$dirs = array_filter(glob('/path/*',GLOB_MARK), 'is_dir'); 
+
+//同上的結果(所以資料夾的路徑)，而且此方法比較標準效能也較快
+// (※不同這邊要注意的是，GLOB_ONLYDIR 僅適用於非使用 GUN C library 的系統
+// 所以當不支援的時候，可以改用第一種方法)
+$dirs = glob('/path/*',GLOB_ONLYDIR | GLOB_MARK); 
+
+//搜尋path資料夾中，所有的檔案的路徑
+// (※筆者很好奇，=3=既然都有 GLOB_ONLYDIR 了，為什麼不多個 GLOB_ONLYFILE )
+$files = array_filter(glob('/path/*'), 'is_file'); 
+
+//搜尋 path 資料夾中所有檔名字串結尾為 .gif、.jpg、.png 檔案路徑
+//(※這邊要注意，若副檔名大小寫不一樣，會搜尋不到，像 .GIF 、 .gIf 或 .giF 都會被忽略掉)
+$images = glob("/path/{*.gif,*.jpg,*.png}", GLOB_BRACE);
+
+//搜尋 path 資料夾中所有檔名字串結尾非 "_s.jpg" 檔案路徑
+$filter = array_filter(glob('img/*'), function($ele){return !stristr($ele,'_s.jpg');});
+
+//搜尋 path 中所有含有 views 資料夾的資料夾
+$dirs = glob('/path/*/views', GLOB_ONLYDIR);
+?>
+<?php
+//獲得路徑檔案相關資訊
+$path_parts = pathinfo(dirname(__FILE__) . '\index.php');
+echo $path_parts['dirname'] . '</br>';
+echo $path_parts['basename'] . '</br>';
+echo $path_parts['extension'] . '</br>';
+echo $path_parts['filename'] . '</br>'; //從PHP 5.2.0開始有
 ?>
 </body>
 </html>

@@ -802,4 +802,18 @@ function youtube_id($action)
 preg_match('/watch\?v=([^&]*)/',$action,$match);
 return $match[1];
 }
+
+//以遞迴的方式，取得深層資料夾的所有路徑
+//print_r listdirs('你要取的系統路徑');
+function listdirs($dir)
+{
+static $alldirs = array();
+$dirs = glob($dir . '/*', GLOB_ONLYDIR);
+ if(count($dirs) > 0)
+ {
+ foreach ($dirs as $d) $alldirs[] = $d;
+ }
+ foreach ($dirs as $dir) listdirs($dir);
+return $alldirs;
+}
 ?>
