@@ -553,3 +553,13 @@ return digits.join(".");
 //千分位符號結束
 
 //使用原生js來操作DOM︰https://www.ptt.cc/bbs/Web_Design/M.1491563726.A.508.html
+
+/*
+replaceAll 小數點
+var s1 = "A.B.C";
+alert(s1.replace(/\./g,"_")); //"A_B_C"
+
+replaceAll 空白
+var s2 = "A B C";
+alert(s1.replace(/\s+/g,"_")); //"A_B_C"
+*/
