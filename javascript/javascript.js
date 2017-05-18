@@ -563,3 +563,24 @@ replaceAll 空白
 var s2 = "A B C";
 alert(s1.replace(/\s+/g,"_")); //"A_B_C"
 */
+
+//判斷語系並且導引頁面開始
+/*$(function()
+{
+var lang = window.navigator.userLanguage || window.navigator.language ;		
+var relang=lang.toLowerCase();
+ switch (relang)
+ {
+ case "zh-cn":
+ $("#tbody").load("minwt_zh-cn.html");
+ break;
+			
+ case "zh-tw":
+ $("#tbody").load("minwt_zh-tw.html");
+ break;
+
+ default:
+ $("#tbody").load("minwt_zh-tw.html");
+ }			
+});*/
+//判斷語系並且導引頁面結束

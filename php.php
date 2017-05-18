@@ -700,5 +700,10 @@ die("錯誤︰".$archive->errorInfo(true));
 <?php
 //copy('https://s3-ap-northeast-1.amazonaws.com/tvbs20160226/img/drama/youthpower/images/98130bc8b1779cee8d28efbabfc4a2f0.jpg', $dest.'98130bc8b1779cee8d28efbabfc4a2f0.jpg'); //另外一種變通的方法
 ?>
+<?php
+//http://seanphpbook.blogspot.tw/2012/07/php.html
+$lang = strtolower(strtok(strip_tags($_SERVER['HTTP_ACCEPT_LANGUAGE']), ','));
+echo $lang;
+?>
 </body>
 </html>
