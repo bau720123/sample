@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery Pagination plugin</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//code.jquery.com/jquery-2.0.3.min.js" type="text/javascript"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="jquery.twbsPagination.min.js" type="text/javascript"></script>
+</head>
+<body>
+<ul class="pagination" id="pagination"></ul>
+<script type="text/javascript">
+$(function ()
+{
+	window.pagObj = $('#pagination').twbsPagination(
+	{
+	totalPages: 35, //總共頁數
+	startPage: 1, //預設開始時在哪一頁數
+	visiblePages: 4, //可顯示範圍內頁數
+	first: '<<', //第一頁
+	prev: '<', //上一頁
+	next: '>', //下一頁
+	last: '>>', //最後一頁
+		onPageClick: function (event, page)
+		{
+		alert("第" + page + "頁被載入了");
+		}
+	}).on('page', function (event, page)
+	{
+	alert("第" + page + "頁被點擊了");
+	});
+    });
+</script>
+</body>
+</html>

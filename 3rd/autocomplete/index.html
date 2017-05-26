@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>無標題文件</title>
+<link href="jquery-ui.css" rel="stylesheet" />
+<script type="text/javascript" src="jquery.min.js" ></script>
+<script type="text/javascript" src="jquery-ui.min.js" ></script>
+</head>
+
+<body>
+<input type="text" name='search_text' id='search_text' class="search2" placeholder="關鍵字" onkeydown="if (event.keyCode == 13) { this.form.submit(); return false; }" />
+<script type="text/javascript">
+$("#search_text").autocomplete(
+{
+ source: function (request, response)
+ {
+  $.ajax(
+  {
+  url: "//tvbsapp.tvbs.com.tw/api/suggester",
+  data: { 'keyword': request.term },
+  dataType: "json",
+   success: function(data)
+   {
+   var keyword = [];
+    for(var i=0;i<data.length;i++)
+	{
+	keyword.push(data[i].keyword);
+	}
+   response(keyword);
+   },
+   error: function()
+   {
+   response([]);
+   }
+  });
+ }
+});
+</script>
+
+</body>
+</html>

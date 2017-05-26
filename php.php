@@ -705,5 +705,25 @@ die("錯誤︰".$archive->errorInfo(true));
 $lang = strtolower(strtok(strip_tags($_SERVER['HTTP_ACCEPT_LANGUAGE']), ','));
 echo $lang;
 ?>
+<?php
+//Soap連線方式
+//extension=php_soap.dll要打開
+/*try
+	{
+	$cardNo = '5459331500686500';
+	$cardBirthday = '0790310';
+	$idNo = 'E124166822';
+	$objSoapClient = new SoapClient("soap的網址");
+	$objSoapClient_result = $objSoapClient->queryCardBonus(array('storeName' => 'SUNNYGO', 'cardBirthday' => $cardBirthday, 'cardNo' =>$cardNo, 'idNo' => $idNo));
+	$objSoapClient_result = get_object_vars($objSoapClient_result);
+	echo '<pre>';
+	print_r($objSoapClient_result);
+	echo '</pre>';
+	}
+	catch(Exception $e)
+	{
+	echo $e->getMessage();
+	}*/
+?>
 </body>
 </html>
