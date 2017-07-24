@@ -901,4 +901,12 @@ $zip=new ZipArchive;
  $zip->close();
  }
 }
+
+//偵測當下流覽器語系
+//echo getlanguage();
+function getlanguage()
+{
+$lang = strtolower(strtok(strip_tags($_SERVER['HTTP_ACCEPT_LANGUAGE']), ','));
+return $lang;
+}
 ?>
