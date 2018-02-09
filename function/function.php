@@ -909,4 +909,35 @@ function getlanguage()
 $lang = strtolower(strtok(strip_tags($_SERVER['HTTP_ACCEPT_LANGUAGE']), ','));
 return $lang;
 }
+
+//透過pagespeedonline的API獲得截圖資訊
+//$screenshot_desktop = getGooglePageSpeedScreenshot($_GET['url'], 'desktop', $_GET['method']);
+//echo "<img src=\"data:image/jpeg;base64," . $screenshot_desktop . "\" />";
+//file_put_contents('screenshot_desktop.jpg', base64_decode($screenshot_desktop));
+//$screenshot_mobile = getGooglePageSpeedScreenshot($_GET['url'], 'mobile', $_GET['method']);
+//echo "<img src=\"data:image/jpeg;base64," . $screenshot_mobile . "\" />";
+//file_put_contents('screenshot_mobile.jpg', base64_decode($screenshot_mobile));
+function getGooglePageSpeedScreenshot($url, $strategy, $method)
+{
+$site = 'https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url=' . $url . '&screenshot=true&strategy=' . $strategy;
+	if($method == 'file_get_contents')
+	{
+	$content = file_get_contents($site);
+	}
+	if($method == 'curl')
+	{
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $site);
+	curl_setopt ($ch, CURLOPT_HEADER, 0);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);//禁止直接顯示獲取的內容
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+	$content = curl_exec($ch);//賦予值
+	}
+
+$content = json_decode($content, true);
+$screenshot = $content['screenshot']['data'];
+$screenshot = str_replace(array('_', '-'), array('/', '+'), $screenshot);
+return $screenshot;
+}
 ?>
