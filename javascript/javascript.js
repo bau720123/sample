@@ -584,3 +584,21 @@ var relang=lang.toLowerCase();
  }			
 });*/
 //判斷語系並且導引頁面結束
+
+//判斷當下某個cookie是否有值
+function getCookie(cookiename) {
+    var name = cookiename + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+//alert(getCookie('要偵測的cookie'));
