@@ -370,6 +370,68 @@ $json = json_decode($response);
 return $json->longUrl;
 }
 
+//使用Bitly服務來編譯成短網址或還原成長網址
+/*
+//make_bitly_url('使用的方法', '使用的網址', '系統給你的帳號', '系統給你的API KEY', '要回傳的格式')
+$shorten = make_bitly_url('shorten', 'https://www.littlebau.com/AllYourCart/', 'o_5oeogd6i2f', 'R_83c16b8b26e84e688f8067f41735909e', 'json') . '<br>'; //http://bit.ly/2L3xaOQ
+$userHash = explode("_", $shorten);
+$userHash = $userHash[0];
+$expand = make_bitly_url('expand', 'http://bit.ly/2L3xaOQ', 'o_5oeogd6i2f', 'R_83c16b8b26e84e688f8067f41735909e', 'json', $userHash);
+$info = make_bitly_url('info', 'http://bit.ly/2L3xaOQ', 'o_5oeogd6i2f', 'R_83c16b8b26e84e688f8067f41735909e', 'json', $userHash);
+$stats = make_bitly_url('stats', 'http://bit.ly/2L3xaOQ', 'o_5oeogd6i2f', 'R_83c16b8b26e84e688f8067f41735909e', 'json');
+$errors = make_bitly_url('errors', 'X', 'o_5oeogd6i2f', 'R_83c16b8b26e84e688f8067f41735909e', 'json');
+foreach($errors as $key=>$value) {
+echo $key.$value['errorCode'] . "<br>";
+}
+*/
+function make_bitly_url($method, $url, $login, $appkey, $format, $userHash = NULL) {
+	if($method == 'shorten') {
+	$url_type = 'longUrl';
+	} else {
+	$url_type = 'shortUrl';
+	}
+$bitly = 'http://api.bit.ly/' . $method . '?version=2.0.1' . '&' . $url_type . '=' . urlencode($url) . '&login=' . $login . '&apiKey=' . $appkey . '&format=' . $format;
+$response = file_get_contents($bitly);
+
+	if(strtolower($format) == 'json') {
+	$json = @json_decode($response,true);
+		
+		//長網址縮短網址
+		if($method == 'shorten') {
+			if($json['results'][$url]['shortKeywordUrl'] == '') {
+			$json['results'][$url]['shortKeywordUrl'] = 'X';
+			}
+		//userHash_shortKeywordUrl_hash_shortCNAMEUrl_shortUrl
+		return $json['results'][$url]['userHash'] . '_' . $json['results'][$url]['shortKeywordUrl'] . '_' . $json['results'][$url]['hash'] . '_' . $json['results'][$url]['shortCNAMEUrl'] . '_' . $json['results'][$url]['shortUrl'];
+		}
+		
+		//短網址還原長網址
+		if($method == 'expand') {
+		return $json['results'][$userHash]['longUrl'];
+		}
+		
+		//提供短網址進行查詢，回傳該網址相關訊息，如誰建立的
+		if($method == 'info') {
+		//shortenedByUser_userHash_longUrl_htmlTitle_globalHash
+		return $json['results'][$userHash]['shortenedByUser'] . '_' . $json['results'][$userHash]['userHash'] . '_' . $json['results'][$userHash]['longUrl'] . '_' . $json['results'][$userHash]['htmlTitle'] . '_' . $json['results'][$userHash]['globalHash'];
+		}
+		
+		//提供短網址的點擊狀況
+		if($method == 'stats') {
+		//hash_userHash_userClicks_clicks
+		return $json['results']['hash'] . '_' . $json['results']['userHash'] . '_' . $json['results']['userClicks'] . '_' . $json['results']['clicks'];
+		}
+		
+		//bitly的錯誤代碼列表
+		if($method == 'errors') {
+		return $json['results'];
+		}
+	} else {
+	$xml = simplexml_load_string($response);
+	return 'http://bit.ly/'.$xml->results->nodeKeyVal->hash;
+	}
+}
+
 //隨機亂數
 //echo randInt('幾位數');
 function randInt($length)
