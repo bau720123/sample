@@ -391,7 +391,12 @@ function make_bitly_url($method, $url, $login, $appkey, $format, $userHash = NUL
 	$url_type = 'shortUrl';
 	}
 $bitly = 'http://api.bit.ly/' . $method . '?version=2.0.1' . '&' . $url_type . '=' . urlencode($url) . '&login=' . $login . '&apiKey=' . $appkey . '&format=' . $format;
-$response = file_get_contents($bitly);
+//$response = file_get_contents($bitly);
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $bitly);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+$response = curl_exec($ch);
+curl_close($ch);
 
 	if(strtolower($format) == 'json') {
 	$json = @json_decode($response,true);
