@@ -1007,4 +1007,34 @@ $screenshot = $content['screenshot']['data'];
 $screenshot = str_replace(array('_', '-'), array('/', '+'), $screenshot);
 return $screenshot;
 }
+
+//獲得某個關鍵字之前的所有字串
+//echo PreString(oolbe.com.tw/index.php/Ecard/ecoupon/3', 'ecoupon')
+function PreString($string, $keyword) {
+$num = strpos($string, $keyword); 
+return substr($string, 0, $num);
+}
+
+
+//獲得guid
+//echo guid();
+//hex with dashes, it'll be varchar(36)
+//Output ex: {80D19B96-E973-67BA-D2C0-F0EA4BD40F1E}
+function guid() {
+    if(function_exists('com_create_guid')) {
+        return com_create_guid();
+    } else {
+		mt_srand((double)microtime()*10000); //optional for php 4.2.0 and up.
+        $charid = strtoupper(md5(uniqid(rand(), true)));
+        $hyphen = chr(45);// "-"
+        $uuid = substr($charid, 0, 8).$hyphen
+			.substr($charid, 8, 4).$hyphen
+            .substr($charid,12, 4).$hyphen
+            .substr($charid,16, 4).$hyphen
+            .substr($charid,20,12);
+        return $uuid;
+    }
+}
+
+
 ?>

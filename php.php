@@ -725,5 +725,20 @@ echo $lang;
 	echo $e->getMessage();
 	}*/
 ?>
+<?php
+//讀出txt裡面的內容
+$files_txt = file_get_contents('member_data.txt');
+$files_txt = explode("\n", $files_txt); //轉化成陣列
+foreach ($files_txt as $inx => $val) {
+	$val = trim($val);
+	if($val == '') {
+		unset($files_txt[$inx]);
+	}
+}
+$files_txt = array_values($files_txt); //重新排序
+echo '<pre>';
+print_r($files_txt);
+echo '</pre>';
+?>
 </body>
 </html>
