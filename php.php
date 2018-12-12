@@ -740,5 +740,16 @@ echo '<pre>';
 print_r($files_txt);
 echo '</pre>';
 ?>
+<?php
+//confirm視窗
+/*echo "<script>
+if(confirm('真的要删除吗?')){
+   alert('点击了确认按钮');
+  }
+  else{
+   alert('点击了取消按钮');
+  }
+</script>";*/
+?>
 </body>
 </html>
