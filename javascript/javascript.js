@@ -648,3 +648,10 @@ if(!re.test(verify_code)) {
 } else {
 	console.log('成功');
 }*/
+
+/*
+取得現在時間
+var today = new Date();
+var currentDateTime = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate() + ' ' + today.getHours() + ':' + today.getMinutes();
+console.log(currentDateTime);
+*/
