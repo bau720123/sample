@@ -625,21 +625,17 @@ function checkID(id) {
 }
 //alert(checkID('要偵測的身份證字號'));
 
-/*
-去除字串中所有空白的方式
+/*//去除字串中所有空白的方式
 var e="aa";
 while(e.indexOf(" ")>=0) { e=e.replace(" ",""); }
 var e="aa";
-e=e.replace(/[s]+/g,"");
-*/
+e=e.replace(/[s]+/g,"");*/
 
-/*
-var reg=/[\D\s]/;
+/*var reg=/[\D\s]/;
 var str= '要檢測的內容';
 if(reg.exec(str)) {
 alert('還有非數字')'
-}
-*/
+}*/
 
 /*var	verify_code	= 'AB123包';
 re = /[a-zA-Z0-9]/;
@@ -649,9 +645,16 @@ if(!re.test(verify_code)) {
 	console.log('成功');
 }*/
 
-/*
-取得現在時間
+/*//取得現在時間
 var today = new Date();
 var currentDateTime = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate() + ' ' + today.getHours() + ':' + today.getMinutes();
 console.log(currentDateTime);
 */
+
+/*//Foreach方式
+var message_type = ['remind_message_type', 'winning_message_type', 'notwinning_message_type', 'checkin_message_type'];
+message_type.forEach(ShowResults);
+function ShowResults(value, index, ar) {
+console.log("value: " + value);
+console.log(" index: " + index);
+}*/
