@@ -125,7 +125,14 @@ min(2,3,1,6,7); //1，取最小值
 $db_selected = mysql_select_db('littleb1_sample', $connection);
 if ($connection) { echo "已建立MySQL資料庫的連線"; } else { echo "無法建立MySQL資料庫的連線"; }
 if ($db_selected) { echo "可使用sample資料庫"; } else { echo "無法使用sample資料庫"; }
-mysql_close($connection);*/
+mysql_close($connection);
+
+$conn = new mysqli($servername, $username, $password);
+if (@$conn->ping()) {
+    echo "連線中";
+} else {
+    echo "連線已關閉";
+}*/
 ?>
 <?php
 //不要快取
@@ -750,6 +757,9 @@ if(confirm('真的要删除吗?')){
    alert('点击了取消按钮');
   }
 </script>";*/
+?>
+<?php
+//phpinfo();
 ?>
 </body>
 </html>
