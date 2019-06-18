@@ -11,11 +11,18 @@ $UUID = '12345'; //UUID自定義
 $randomNumber = '0710'; //隨機碼
 $appID = 'EINV5201808264143'; //系統串接*/
 
-$invNum = 'HQ18334839'; //發票號碼
+/*$invNum = 'HQ18334839'; //發票號碼
 $invTerm = '10710'; //發票民國年月
-//$UUID = '12345'; //UUID自定義
+$UUID = '12345'; //UUID自定義
 $UUID = '77998'; //UUID自定義
 $randomNumber = '7321'; //隨機碼
+$appID = 'EINV5201808264143'; //系統串接*/
+
+$invNum = 'QD11958164'; //發票號碼
+$invTerm = '10806'; //發票民國年月
+//$UUID = '12345'; //UUID自定義
+$UUID = '77998'; //UUID自定義
+$randomNumber = '5332'; //隨機碼
 $appID = 'EINV5201808264143'; //系統串接
 
 $curl = curl_init();
